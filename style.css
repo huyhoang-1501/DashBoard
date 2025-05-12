@@ -7,6 +7,9 @@
 
 body {
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: #2c3e50;
   min-height: 100vh;
   display: flex;
@@ -35,7 +38,7 @@ body {
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Thay đổi từ space-between để đẩy về trái */
+  justify-content: flex-start;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
@@ -64,15 +67,15 @@ body {
   letter-spacing: 2px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   margin: 0;
-  margin-left: 2rem; /* Thêm margin-left để đẩy về trái nhiều hơn */
-  flex: 0 0 auto; /* Loại bỏ flex-grow để kiểm soát kích thước */
+  margin-left: 2rem;
+  flex: 0 0 auto;
 }
 
 .logo-section {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-left: auto; /* Đẩy logo-section về bên phải */
+  margin-left: auto;
 }
 
 #logo {
@@ -132,7 +135,7 @@ body {
 #time {
   text-align: center;
   font-size: 2rem;
-  margin: 1.5rem 0;
+  margin: 1rem auto 1.5rem auto;
   font-weight: 600;
   color: #e74c3c;
   background: rgba(231, 76, 60, 0.1);
@@ -140,8 +143,6 @@ body {
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .weather-container {
@@ -283,6 +284,39 @@ body {
   margin-top: 0.5rem;
 }
 
+/* Activity Log Styles */
+.activity-log {
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+.activity-log h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.log-list {
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.log-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ecf0f1;
+  font-size: 0.9rem;
+  color: #2c3e50;
+}
+
 .chart-container {
   background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
   border-radius: 15px;
@@ -297,6 +331,11 @@ body {
 .chart-container canvas {
   width: 100% !important;
   height: auto !important;
+}
+
+.tag button.active {
+  background-color: #007bff;
+  color: white;
 }
 
 #dynamicContent h1 {
