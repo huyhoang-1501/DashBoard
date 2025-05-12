@@ -238,11 +238,11 @@ function selectRoom(room) {
   currentRoom = room;
   console.log(`Chuyển sang phòng: ${currentRoom}`);
 
-  const backgroundImages = {
-    phong1: 'url("https://images.unsplash.com/photo-1616046229478-9901c5536a45?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80")', 
-    phong2: 'url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80")', 
-    phong3: 'url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80")', 
-    phong4: 'url("https://images.unsplash.com/photo-1600210492493-0946911123ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80")' 
+   const backgroundImages = {
+    phong1: 'url("image/phong1.avif")', 
+    phong2: 'url("image/phong2.avif")', 
+    phong3: 'url("image/phong3.avif")', 
+    phong4: 'url("image/phong4.avif")'
   };
   document.body.style.backgroundImage = backgroundImages[room] || 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
 
