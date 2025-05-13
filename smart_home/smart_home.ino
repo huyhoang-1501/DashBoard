@@ -19,19 +19,19 @@ DHT dht(DHTPIN, DHTTYPE);
 #define GAS_SENSOR_PIN 36
 #define CO2_THRESHOLD 2000 // Ngưỡng CO2 (ppm)
 
-// LED mô phỏng thiết bị
-#define LED_DEN_1 26   
-#define LED_QUAT_1 25    
-#define LED_LOA_1 15 
-#define LED_DEN_2 14   
-#define LED_QUAT_2 27    
-#define LED_LOA_2 33 
-#define LED_DEN_3 32   
-#define LED_QUAT_3 23    
-#define LED_LOA_3 22 
-#define LED_DEN_4 21   
-#define LED_QUAT_4 19    
-#define LED_LOA_4 5  
+//  mô phỏng thiết bị
+#define DEN_1 26   
+#define QUAT_1 25    
+#define LOA_1 15 
+#define DEN_2 14   
+#define QUAT_2 27    
+#define LOA_2 33 
+#define DEN_3 32   
+#define QUAT_3 23    
+#define LOA_3 22 
+#define DEN_4 21   
+#define QUAT_4 19    
+#define LOA_4 5  
 
 // Firebase Objects
 FirebaseData fbdo;
@@ -49,14 +49,14 @@ const int numPhongs = 4;
 
 void setup() {
     Serial.begin(9600);
-    Serial.println(F("Khởi động DHT11, MQ-2 và Firebase cho 4 phòng (1 bộ cảm biến, LED mô phỏng thiết bị)!"));
+    Serial.println(F("Khởi động DHT11, MQ-2 và Firebase cho 4 phòng (1 bộ cảm biến,  mô phỏng thiết bị)!"));
 
-    // Thiết lập chân LED
-    int ledPins[] = {LED_DEN_1, LED_QUAT_1, LED_LOA_1, LED_DEN_2, LED_QUAT_2, LED_LOA_2,
-                     LED_DEN_3, LED_QUAT_3, LED_LOA_3, LED_DEN_4, LED_QUAT_4, LED_LOA_4};
+    // Thiết lập chân 
+    int Pins[] = {DEN_1, QUAT_1, LOA_1, DEN_2, QUAT_2, LOA_2,
+                     DEN_3, QUAT_3, LOA_3, DEN_4, QUAT_4, LOA_4};
     for (int i = 0; i < 12; i++) {
-        pinMode(ledPins[i], OUTPUT);
-        digitalWrite(ledPins[i], LOW);
+        pinMode(Pins[i], OUTPUT);
+        digitalWrite(Pins[i], LOW);
     }
 
     // Kết nối WiFi
@@ -109,8 +109,8 @@ void loop() {
             // Gửi dữ liệu cảm biến
             sendSensorData();
 
-            // Điều khiển LED
-            controlLEDs();
+            // Điều khiển thiết bị
+            controlDevice();
         } else {
             for (int i = 0; i < numPhongs; i++) {
                 Firebase.setInt(fbdo, String("/") + phongs[i] + "/status/connection", 0);
@@ -187,100 +187,100 @@ void sendSensorData() {
     }
 }
 
-void controlLEDs() {
+void controlDevice() {
     // Phòng 1
     String basePath = "/" + String(phongs[0]);
     if (Firebase.getInt(fbdo, basePath + "/den")) {
         int state = fbdo.intData();
-        digitalWrite(LED_DEN_1, state ? HIGH : LOW);
-        Serial.println(String(phongs[0]) + " - LED ĐÈN: " + String(state ? "Bật" : "Tắt"));
+        digitalWrite(DEN_1, state ? HIGH : LOW);
+        Serial.println(String(phongs[0]) + " - ĐÈN: " + String(state ? "Bật" : "Tắt"));
     } else {
-        Serial.println(String(phongs[0]) + " - Lỗi đọc trạng thái LED ĐÈN!");
+        Serial.println(String(phongs[0]) + " - Lỗi đọc trạng thái  ĐÈN!");
     }
     if (Firebase.getInt(fbdo, basePath + "/quat")) {
         int state = fbdo.intData();
-        digitalWrite(LED_QUAT_1, state ? HIGH : LOW);
-        Serial.println(String(phongs[0]) + " - LED QUẠT: " + String(state ? "Bật" : "Tắt"));
+        digitalWrite(QUAT_1, state ? HIGH : LOW);
+        Serial.println(String(phongs[0]) + " - QUẠT: " + String(state ? "Bật" : "Tắt"));
     } else {
-        Serial.println(String(phongs[0]) + " - Lỗi đọc trạng thái LED QUẠT!");
+        Serial.println(String(phongs[0]) + " - Lỗi đọc trạng thái QUẠT!");
     }
     if (Firebase.getInt(fbdo, basePath + "/loa")) {
         int state = fbdo.intData();
-        digitalWrite(LED_LOA_1, state ? HIGH : LOW);
-        Serial.println(String(phongs[0]) + " - LED LOA: " + String(state ? "Bật" : "Tắt"));
+        digitalWrite(LOA_1, state ? HIGH : LOW);
+        Serial.println(String(phongs[0]) + " - LOA: " + String(state ? "Bật" : "Tắt"));
     } else {
-        Serial.println(String(phongs[0]) + " - Lỗi đọc trạng thái LED LOA!");
+        Serial.println(String(phongs[0]) + " - Lỗi đọc trạng thái LOA!");
     }
 
     // Phòng 2
     basePath = "/" + String(phongs[1]);
     if (Firebase.getInt(fbdo, basePath + "/den")) {
         int state = fbdo.intData();
-        digitalWrite(LED_DEN_2, state ? HIGH : LOW);
-        Serial.println(String(phongs[1]) + " - LED ĐÈN: " + String(state ? "Bật" : "Tắt"));
+        digitalWrite(DEN_2, state ? HIGH : LOW);
+        Serial.println(String(phongs[1]) + " - ĐÈN: " + String(state ? "Bật" : "Tắt"));
     } else {
-        Serial.println(String(phongs[1]) + " - Lỗi đọc trạng thái LED ĐÈN!");
+        Serial.println(String(phongs[1]) + " - Lỗi đọc trạng thái ĐÈN!");
     }
     if (Firebase.getInt(fbdo, basePath + "/quat")) {
         int state = fbdo.intData();
-        digitalWrite(LED_QUAT_2, state ? HIGH : LOW);
-        Serial.println(String(phongs[1]) + " - LED QUẠT: " + String(state ? "Bật" : "Tắt"));
+        digitalWrite(QUAT_2, state ? HIGH : LOW);
+        Serial.println(String(phongs[1]) + " - QUẠT: " + String(state ? "Bật" : "Tắt"));
     } else {
-        Serial.println(String(phongs[1]) + " - Lỗi đọc trạng thái LED QUẠT!");
+        Serial.println(String(phongs[1]) + " - Lỗi đọc trạng thái QUẠT!");
     }
     if (Firebase.getInt(fbdo, basePath + "/loa")) {
         int state = fbdo.intData();
-        digitalWrite(LED_LOA_2, state ? HIGH : LOW);
-        Serial.println(String(phongs[1]) + " - LED LOA: " + String(state ? "Bật" : "Tắt"));
+        digitalWrite(LOA_2, state ? HIGH : LOW);
+        Serial.println(String(phongs[1]) + " - LOA: " + String(state ? "Bật" : "Tắt"));
     } else {
-        Serial.println(String(phongs[1]) + " - Lỗi đọc trạng thái LED LOA!");
+        Serial.println(String(phongs[1]) + " - Lỗi đọc trạng thái LOA!");
     }
 
     // Phòng 3
     basePath = "/" + String(phongs[2]);
     if (Firebase.getInt(fbdo, basePath + "/den")) {
         int state = fbdo.intData();
-        digitalWrite(LED_DEN_3, state ? HIGH : LOW);
-        Serial.println(String(phongs[2]) + " - LED ĐÈN: " + String(state ? "Bật" : "Tắt"));
+        digitalWrite(DEN_3, state ? HIGH : LOW);
+        Serial.println(String(phongs[2]) + " - Thiết bị: " + String(state ? "Bật" : "Tắt"));
     } else {
-        Serial.println(String(phongs[2]) + " - Lỗi đọc trạng thái LED ĐÈN!");
+        Serial.println(String(phongs[2]) + " - Lỗi đọc trạng thái  Thiết bị!");
     }
     if (Firebase.getInt(fbdo, basePath + "/quat")) {
         int state = fbdo.intData();
-        digitalWrite(LED_QUAT_3, state ? HIGH : LOW);
-        Serial.println(String(phongs[2]) + " - LED QUẠT: " + String(state ? "Bật" : "Tắt"));
+        digitalWrite(QUAT_3, state ? HIGH : LOW);
+        Serial.println(String(phongs[2]) + " - QUẠT: " + String(state ? "Bật" : "Tắt"));
     } else {
-        Serial.println(String(phongs[2]) + " - Lỗi đọc trạng thái LED QUẠT!");
+        Serial.println(String(phongs[2]) + " - Lỗi đọc trạng thái QUẠT!");
     }
     if (Firebase.getInt(fbdo, basePath + "/loa")) {
         int state = fbdo.intData();
-        digitalWrite(LED_LOA_3, state ? HIGH : LOW);
-        Serial.println(String(phongs[2]) + " - LED LOA: " + String(state ? "Bật" : "Tắt"));
+        digitalWrite(LOA_3, state ? HIGH : LOW);
+        Serial.println(String(phongs[2]) + " - LOA: " + String(state ? "Bật" : "Tắt"));
     } else {
-        Serial.println(String(phongs[2]) + " - Lỗi đọc trạng thái LED LOA!");
+        Serial.println(String(phongs[2]) + " - Lỗi đọc trạng thái LOA!");
     }
 
     // Phòng 4
     basePath = "/" + String(phongs[3]);
     if (Firebase.getInt(fbdo, basePath + "/den")) {
         int state = fbdo.intData();
-        digitalWrite(LED_DEN_4, state ? HIGH : LOW);
-        Serial.println(String(phongs[3]) + " - LED ĐÈN: " + String(state ? "Bật" : "Tắt"));
+        digitalWrite(DEN_4, state ? HIGH : LOW);
+        Serial.println(String(phongs[3]) + " - ĐÈN: " + String(state ? "Bật" : "Tắt"));
     } else {
-        Serial.println(String(phongs[3]) + " - Lỗi đọc trạng thái LED ĐÈN!");
+        Serial.println(String(phongs[3]) + " - Lỗi đọc trạng thái ĐÈN!");
     }
     if (Firebase.getInt(fbdo, basePath + "/quat")) {
         int state = fbdo.intData();
-        digitalWrite(LED_QUAT_4, state ? HIGH : LOW);
-        Serial.println(String(phongs[3]) + " - LED QUẠT: " + String(state ? "Bật" : "Tắt"));
+        digitalWrite(QUAT_4, state ? HIGH : LOW);
+        Serial.println(String(phongs[3]) + " - QUẠT: " + String(state ? "Bật" : "Tắt"));
     } else {
-        Serial.println(String(phongs[3]) + " - Lỗi đọc trạng thái LED QUẠT!");
+        Serial.println(String(phongs[3]) + " - Lỗi đọc trạng thái QUẠT!");
     }
     if (Firebase.getInt(fbdo, basePath + "/loa")) {
         int state = fbdo.intData();
-        digitalWrite(LED_LOA_4, state ? HIGH : LOW);
-        Serial.println(String(phongs[3]) + " - LED LOA: " + String(state ? "Bật" : "Tắt"));
+        digitalWrite(LOA_4, state ? HIGH : LOW);
+        Serial.println(String(phongs[3]) + " - LOA: " + String(state ? "Bật" : "Tắt"));
     } else {
-        Serial.println(String(phongs[3]) + " - Lỗi đọc trạng thái LED LOA!");
+        Serial.println(String(phongs[3]) + " - Lỗi đọc trạng thái LOA!");
     }
 }
